@@ -6,7 +6,7 @@ import {renameSync, unlinkSync} from "fs"
 const maxAge = 3 * 24 * 60 * 60 * 1000;
 
 const createToken = (email,userId) => {
-    return jwt.sign({email,userId},process.env.JWT_KEY,{expiresIn:maxAge,sameSite: "None"});
+    return jwt.sign({email,userId},process.env.JWT_KEY,{expiresIn:maxAge});
 }
 
 export const signup = async(request,response,next) => {
@@ -16,7 +16,11 @@ export const signup = async(request,response,next) => {
             return response.status(400).json({error:"Email and Password are required"});
         }
         const user = await User.create({email,password});
-        response.cookie("jwt",createToken(email,user.id),{maxAge,sameSite: "None"});
+        response.cookie("jwt",createToken(email,user.id),{
+            maxAge,
+            secure: true,
+            sameSite: "None",
+        });
         return response.status(201).json({
             user:{
                 id:user.id,
@@ -45,8 +49,11 @@ export const login = async(request,response,next) => {
             return response.status(401).json({error:"Invalid Password"});
         }
 
-        response.cookie("jwt",createToken(email,user.id),{maxAge,sameSite: "None"});
-
+        response.cookie("jwt",createToken(email,user.id),{
+            maxAge,
+            secure: true,
+            sameSite: "None",
+        });
         return response.status(200).json({
             id:user.id,
             email:user.email,
@@ -161,7 +168,7 @@ export const removeProfileImage = async(request,response,next) => {
 
 export const logout = async(request,response,next) => {
     try{
-        response.cookie("jwt","",{maxAge:1,sameSite: "None"});
+        response.cookie("jwt","",{maxAge:1,secure:true,sameSite:"None"});
         return response.status(200).send("Logout Successful");
     }catch(error){
         console.log({error});
