@@ -10,6 +10,7 @@ import messagesRoutes from './routes/MessagesRoute.js';
 
 
 dotenv.config();
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 const database_URl = process.env.DATABASE_URL;
