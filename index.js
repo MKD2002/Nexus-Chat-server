@@ -25,8 +25,16 @@ const corsOptions = {
 
 app.use(cors(corsOptions))
 app.options('*', cors(corsOptions));
-app.use("/uploads/profiles",express.static("uploads/profiles"))
-app.use("/uploads/files",express.static("uploads/files"))
+app.use("/uploads/profiles",express.static("uploads/profiles",{
+    setHeaders: function (res, path) {
+    res.set('Access-Control-Allow-Origin', '*'); // Allow cross-origin access to images
+  }
+}))
+app.use("/uploads/files",express.static("uploads/files",{
+    setHeaders: function (res, path) {
+    res.set('Access-Control-Allow-Origin', '*'); // Allow cross-origin access to images
+  }
+}))
 app.use(cookieParser());
 app.use(express.json());
 
