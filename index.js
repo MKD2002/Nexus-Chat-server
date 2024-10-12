@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3001;
 const database_URl = process.env.DATABASE_URL;
 
 const corsOptions = {
-    origin:'*',
+    origin:process.env.ORIGIN,
     methods:['GET','POST','PUT','DELETE','PATCH'],
     credentials:true,
     allowedHeaders: ['Content-Type', 'Authorization'],
