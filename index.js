@@ -19,7 +19,7 @@ const corsOptions = {
     origin:'*',
     methods:['GET','POST','PUT','DELETE','PATCH'],
     credentials:true,
-    allowedHeaders: '*',
+    allowedHeaders: ['Content-Type', 'Authorization'],
     exposedHeaders: '*',
 };
 
