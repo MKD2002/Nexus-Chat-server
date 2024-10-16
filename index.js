@@ -27,11 +27,13 @@ app.options('*', cors(corsOptions));
 app.use("/uploads/profiles",express.static("uploads/profiles",{
     setHeaders: function (res, path) {
     res.set('Access-Control-Allow-Origin', '*'); // Allow cross-origin access to images
+    res.set('Content-Type', 'application/json');
   }
 }))
 app.use("/uploads/files",express.static("uploads/files",{
     setHeaders: function (res, path) {
     res.set('Access-Control-Allow-Origin', '*'); // Allow cross-origin access to images
+    res.set('Content-Type', 'application/json');
   }
 }))
 app.use(cookieParser());
