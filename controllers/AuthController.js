@@ -19,6 +19,7 @@ export const signup = async(request,response,next) => {
         response.cookie("jwt",createToken(email,user.id),{
             maxAge,
             sameSite: "None",
+            secure:true,
         });
         return response.status(201).json({
             user:{
@@ -51,6 +52,7 @@ export const login = async(request,response,next) => {
         response.cookie("jwt",createToken(email,user.id),{
             maxAge,
             sameSite: "None",
+            secure:true,
         });
         return response.status(200).json({
             id:user.id,
